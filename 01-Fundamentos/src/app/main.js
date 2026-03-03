@@ -1,9 +1,6 @@
 "use strict"; 
 
-/**
- * VALIDA QUE SEA NUMERO FINITO
- * LANZA ERROR SI NO CUMPLE
- */
+ 
 function validarValor(valor) {
     const numero = Number(valor); 
     // Convierte el valor a número
@@ -17,16 +14,16 @@ function validarValor(valor) {
     // Retorna el numero ya validado
 }
 
-/**
- * VALIDA QUE LA UNIDAD ESTE SOPORTADA
- */
+
+ //VALIDA QUE LA UNIDAD ESTE SOPORTADA
+ 
 function validarUnidad(unidad) {
-    const unidadesSoportadas = ["c", "f", "k", "m", "km", "cm"];
+    const unidadesSoportadas = ["c", "f", "k", "m", "km", "cm", "fahrenheit", "celcios", "kelvin", "metros", "kilimetros", "centimetros"];
     // Lista de unidades que el programa acepta
 
     if (!unidadesSoportadas.includes(unidad.toLowerCase())) {
         // Si la unidad no esta en la lista, lanza error
-        throw new Error("Unidad no soportada");
+        throw new Error("Unidad no valida");
     }
 }
 
@@ -34,7 +31,7 @@ function validarUnidad(unidad) {
 // Aquí usamos una lista de objetos
 
 const conversiones = [
-    { valor: 100, origen: "C", destino: "F" },
+    { valor: 100, origen: "km", destino: "Fahrenheit" },
     { valor: 1500, origen: "m", destino: "km" }
 ];
 
@@ -52,8 +49,8 @@ function convertir({ valor, origen, destino }) {
     validarUnidad(destino);
     // Validamos que ambas unidades existan
 
-    const temperatura = ["c", "f", "k"];
-    const longitud = ["m", "km", "cm"];
+    const temperatura = ["c", "f", "k", "celsius", "fahrenheit", "kelvin"];
+    const longitud = ["m", "km", "cm", "metros", "kilimetros", "centimetros"];
     // Separamos las categorias
 
     const esTempOrigen = temperatura.includes(origen);
@@ -62,7 +59,9 @@ function convertir({ valor, origen, destino }) {
     const esLongDestino = longitud.includes(destino);
 
     // Verificamos que no se mezclen categorias
-    if ((esTempOrigen && esLongDestino) || (esLongOrigen && esTempDestino)) {
+    if ((esTempOrigen && esLongDestino) || 
+       (esLongOrigen && esTempDestino)) 
+    {
         throw new Error("No se pueden mezclar categorias diferentes");
     }
 
@@ -115,10 +114,10 @@ for (const item of conversiones) {
         item.resultado = convertir(item).toFixed(2);
         // Guardamos el resultado dentro del mismo objeto
     } catch (error) {
-        item.resultado = "Error";
+    item.resultado = error.message;
+}
         // Si algo falla no se rompe el programa
     }
-}
 
 
 console.table(conversiones);
