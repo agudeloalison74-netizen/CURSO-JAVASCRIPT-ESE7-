@@ -46,6 +46,62 @@ const numCompras = compras.filter((compras) => compras.amount >= 25000);
 console.log(numCompras);
 
 
-
 const totalNumCompras = numCompras.reduce((total, compras) => total + compras.amount, 0);
 console.log(totalNumCompras);
+
+
+// Kilometros recorridos en actividades físicas
+const ejercicios = [
+  { km: 3, actividad: "caminar" },
+  { km: 6, actividad: "correr" },
+  { km: 10, actividad: "bicicleta" },
+];
+
+const largos = ejercicios.filter((ejercicio) => ejercicio.km >= 5);
+console.log(largos);
+
+const totalKm = largos.reduce((total, ejercicio) => total + ejercicio.km, 0);
+console.log(totalKm);
+
+
+
+// Estudiantes que aprobaron la materia
+const estudiantes = [
+  { nota: 2.8, nombre: "Maria" },
+  { nota: 3.5, nombre: "Carlos" },
+  { nota: 4.2, nombre: "Laura" },
+];
+
+const aprobados = estudiantes.filter((estudiante) => estudiante.nota >= 3);
+console.log(aprobados);
+
+const totalNotas = aprobados.reduce((total, estudiante) => total + estudiante.nota, 0);
+console.log(totalNotas);
+
+
+// Productos en promoción
+const productos = [
+  { precio: 20000, nombre: "audifonos" },
+  { precio: 45000, nombre: "teclado" },
+  { precio: 15000, nombre: "mouse" },
+];
+
+const promociones = productos.filter((producto) => producto.precio <= 30000);
+console.log(promociones);
+
+const totalPromo = promociones.reduce((total, producto) => total + producto.precio, 0);
+console.log(totalPromo);
+
+
+// Empleados con horas extra
+const empleados = [
+  { horas: 35, nombre: "Sofia" },
+  { horas: 45, nombre: "Andres" },
+  { horas: 50, nombre: "Camila" },
+];
+
+const horasExtra = empleados.filter((empleado) => empleado.horas > 40);
+console.log(horasExtra);
+
+const totalHoras = horasExtra.reduce((total, empleado) => total + empleado.horas, 0);
+console.log(totalHoras);
