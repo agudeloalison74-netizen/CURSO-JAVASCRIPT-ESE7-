@@ -1,0 +1,13 @@
+{
+  "name": "modulos-es-scope-closures",
+  "version": "1.0.0",
+  "main": "app/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

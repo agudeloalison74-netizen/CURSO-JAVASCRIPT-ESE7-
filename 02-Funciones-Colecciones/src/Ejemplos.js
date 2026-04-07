@@ -1,107 +1,159 @@
-"use strict"; 
-/*
-Ejemplos map
-*/
-//Conversion de precio a Dolares
-const precios = [4000, 8000, 12000, 20000];
-const dolares = precios.map((pre) => pre / 4000); 
-console.log(dolares); 
+// formas de declarar funciones en javascript
+
+function sumar(a, b) {
+  return a + b;
+}
+
+console.log(sumar(5, 3)); // Imprime 8
+
+const multiplicar = function (a, b) {
+  return a * b;
+};
+
+console.log(multiplicar(5, 3)); // Imprime 15
+
+const clamp = (num, min, max) => {
+  return Math.min(Math.max(num, min), max); // clamp a un rango entre min y max
+};
+console.log(clamp(10, 0, 5)); // Imprime 5 (clamp a 5)
+
+// Parametros por defecto, rest y guard clauses
+
+function greet(name = "Invitado") {
+  if (!name.trim())
+    // trim elimina espacios en blanco al inicio y al final de la cadena
+    return "Hola, Invitado!";
+  return `Hola, ${name}!`;
+}
+
+console.log(greet()); // Imprime "Hola, Invitado!"
+console.log(greet("Alice"));
+
+// Arrays y metodos claves
+
+const numeros = [1, 2, 3, 4, 5];
+const cuadrados = numeros.map((num) => num * 2); // map crea un nuevo array con los resultados de la función aplicada a cada elemento
+console.log(cuadrados); // Imprime [1, 4, 9, 16, 25]
+
+const expenses = [
+  { amount: 50, category: "food" },
+  { amount: 20, category: "transport" },
+  { amount: 30, category: "food" },
+];
+// filter 
+
+const foodExpenses = expenses.filter((expense) => expense.category === "food"); 
+// filter crea un nuevo array con los elementos que cumplen la condición
+console.log(foodExpenses); 
+// Imprime [{ amount: 50, category: "food" }, { amount: 30, category: "food" }]
+
+const totalFoodExpense = foodExpenses.reduce((total, expense) => total + expense.amount, 0);
+// reduce acumula un valor a través de los elementos del array, en este caso 
+// sumando los montos de los gastos de comida
+console.log(totalFoodExpense); // Imprime 80
+
+// map, filter, reduce son métodos muy poderosos para trabajar con arrays 
+// de manera funcional y evitar mutaciones.
+// ejemplo de map y filter juntos
+const numbers = [1, 2, 3, 4, 5];
+const evenSquares = numbers
+  .filter((num) => num % 2 === 0) // Filtra los números pares
+  .map((num) => num * num); // Luego mapea esos números al cuadrado
+console.log(evenSquares); // Imprime [4, 16]
 
 
-//conversion de minut6os a segundos
-const minutos = [1, 5, 10, 3];
-const segundos = minutos.map((min) => min * 60); 
-console.log(segundos); 
+/**
+ * EJEMPLOS ARRAYS Y MÉTODOS CLAVES
+ * EJEMPLOS DE MAP
+ */
+// 1.
+const precios = [1000, 2000, 3000]; //Defino el array precios
+const IVA = precios.map((precio) => precio * 1.19); // El map va producto por producto y le suma el IVA
+//Convierto los precios anteriores a preios con el valor del IVA
+console.log(IVA);
 
+//2.
+const usuarios = [ 
+    {nombre: "Ana", edad: 17}, 
+    {nombre: "Eileen", edad: 16}, 
+    {nombre: "Andrea", edad: 17}
+];
+const nombres = usuarios.map( usuario => usuario.nombre);
+console.log(nombres);
+// El map va usuario por usuario y solamente selecciona la clave nombre
 
-//precio con descuento 10%
-const precio = [50000, 20000, 100000];
-const descuento = precio.map((pr) => pr * 0.9); 
-console.log(descuento); 
+//3.
+const edades = usuarios.map(usuario => usuario.edad);
+console.log(edades);
+// El map va usuario por usuario y solamente selecciona la clave edad
 
+//4.
+const notas = [ 3.0, 4.1, 5.0, 2.9];
+const resultados = notas.map(nota => nota >=3 ? "Aprobó" : "Reprobó" ) ; //operador ternario ? condicion
+console.log(resultados);
 
-//Edades en 5 años
-const edades = [1, 49, 78, 17];
-const futuro = edades.map((ed) => ed + 5); 
-console.log(futuro); 
+//5.
+const horas = [1, 2, 3, 4, 5, 6];
+const minutos = horas.map(hora => hora * 60);
+console.log(minutos);
 
+// EJEMPLOS DE FILTER
+// 1.
+const costos = [ 5000, 6000, 10000, 200];
+const baratos = costos.filter( costo => costo < 10000); //Filtra los números menores a 10000
+console.log(baratos);
 
-//Notas con un punto extra
-const notas = [3.0, 1.5, 4.0];
-const nvnota = notas.map((not) => not + 0.5); 
-console.log(nvnota); 
+//REDUCE 1.
+const gastos = costos.reduce((total, costo) => total + costo, 0);
+console.log(gastos) // suma los numeros del array dando como resultado 21200
 
-/*
-Ejemplos Filter y Reduce
-*/
-//  Compras mayores a 25000
-const compras = [
-  { amount: 10000, product: "camisa" },
-  { amount: 25000, product: "pantalones" },
-  { amount: 60000, product: "chaquetas" },
+// 2.
+const prendas = [
+  { precio: 100000, categoria: "deportiva" },
+  { precio: 60000, categoria: "casual" },
+  { precio: 150000, categoria: "elegante" },
+  { precio: 90000, categoria: "deportiva" },
+  { precio: 200000, categoria: "casual" },
+  { precio: 180000, categoria: "elegante" }
+];
+const prendasDeportivas = prendas.filter((prenda) => prenda.categoria === "deportiva");
+console.log(prendasDeportivas);
+
+// REDUCE 2.
+const sumaPrendasDeportivas = prendasDeportivas.reduce((total, prenda) => total + prenda.precio, 0);
+console.log(sumaPrendasDeportivas);
+
+//FILTRO 3.
+const prendasCasuales = prendas.filter((prenda) => prenda.categoria === "casual");
+console.log(prendasCasuales);
+
+// REDUCE 3.
+const sumaPrendasCasuales = prendasCasuales.reduce((total, prenda) => total + prenda.precio, 0);
+console.log(sumaPrendasCasuales);
+
+//FILTRO 4.
+const prendasElegantes =prendas.filter((prenda) => prenda.categoria === "elegante");
+console.log(prendasElegantes);
+
+//REDUCE 4.
+const sumaPrendasElegantes = prendasElegantes.reduce((total , prenda) => total + prenda.precio, 0);
+console.log(sumaPrendasElegantes);
+
+//FILTRO 5.
+const datos = [
+  {estuadiante: "Felipe", calificacion: 2.5},
+  {estuadiante: "Juana", calificacion: 3.5},
+  {estuadiante: "Felipe", calificacion: 4.0},
+  {estuadiante: "Juana", calificacion: 3.0},
+  {estuadiante: "Felipe", calificacion: 3.8},
+  {estuadiante: "Juana", calificacion: 2.9},
 ];
 
+const calificacion = datos.filter((dato) => dato.estuadiante === "Felipe");
+console.log(calificacion);
 
-const numCompras = compras.filter((compras) => compras.amount >= 25000); 
-console.log(numCompras);
-
-
-const totalNumCompras = numCompras.reduce((total, compras) => total + compras.amount, 0);
-console.log(totalNumCompras);
-
-
-// Kilometros recorridos en actividades físicas
-const ejercicios = [
-  { km: 3, actividad: "caminar" },
-  { km: 6, actividad: "correr" },
-  { km: 10, actividad: "bicicleta" },
-];
-
-const largos = ejercicios.filter((ejercicio) => ejercicio.km >= 5);
-console.log(largos);
-
-const totalKm = largos.reduce((total, ejercicio) => total + ejercicio.km, 0);
-console.log(totalKm);
-
-
-
-// Estudiantes que aprobaron la materia
-const estudiantes = [
-  { nota: 2.8, nombre: "Maria" },
-  { nota: 3.5, nombre: "Carlos" },
-  { nota: 4.2, nombre: "Laura" },
-];
-
-const aprobados = estudiantes.filter((estudiante) => estudiante.nota >= 3);
-console.log(aprobados);
-
-const totalNotas = aprobados.reduce((total, estudiante) => total + estudiante.nota, 0);
-console.log(totalNotas);
-
-
-// Productos en promoción
-const productos = [
-  { precio: 20000, nombre: "audifonos" },
-  { precio: 45000, nombre: "teclado" },
-  { precio: 15000, nombre: "mouse" },
-];
-
-const promociones = productos.filter((producto) => producto.precio <= 30000);
-console.log(promociones);
-
-const totalPromo = promociones.reduce((total, producto) => total + producto.precio, 0);
-console.log(totalPromo);
-
-
-// Empleados con horas extra
-const empleados = [
-  { horas: 35, nombre: "Sofia" },
-  { horas: 45, nombre: "Andres" },
-  { horas: 50, nombre: "Camila" },
-];
-
-const horasExtra = empleados.filter((empleado) => empleado.horas > 40);
-console.log(horasExtra);
-
-const totalHoras = horasExtra.reduce((total, empleado) => total + empleado.horas, 0);
-console.log(totalHoras);
+//REDUCE 5.
+const suma = calificacion.reduce((total, dato) => total + dato.calificacion, 0) / calificacion.length;
+console.log(suma);
+// .length propiedad que dice la cantidad de elementos que hay dentro del array
+// en este caso 3 elementos en el array de calificacion 
